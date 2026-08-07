@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /sibonis
+Disallow: /sibonis-coffee-seo-audit
+Disallow: /sibonis-website-proposal
+
+Sitemap: https://lannamountain.coffee/sitemap.xml
