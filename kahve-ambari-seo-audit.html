@@ -405,50 +405,48 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="metric hl-amber">
         <div class="m-label">Wholesale terms on page one</div>
         <div class="m-num">3<span>/10</span></div>
-        <div class="m-cap">#2 "kahve toptancısı", #2 "toptan kahve çekirdeği", #8 "toptan kahve tedarikçileri". Not in the top 10 for "toptan kahve" (480/mo).</div>
-      </div>
-      <div class="metric hl-green">
-        <div class="m-label">Products with Product schema</div>
-        <div class="m-num">240<span>/240</span></div>
-        <div class="m-cap">Every product page returns 200, carries Product markup and is self-canonical, apart from 6 redirects.</div>
-      </div>
-      <div class="metric hl-fail">
-        <div class="m-label">Mobile speed (Lighthouse)</div>
-        <div class="m-num">26–39<span>/100</span></div>
-        <div class="m-cap">Largest Contentful Paint 14–25 s on mobile, against a 2.5 s "good" threshold. Pieton's wholesale page scored 59.</div>
+        <div class="m-cap">#2 for "kahve toptancısı" and "toptan kahve çekirdeği". Not in the top 10 for "toptan kahve" (480/mo).</div>
       </div>
       <div class="metric hl-fail">
         <div class="m-label">Local-pack appearances</div>
         <div class="m-num">0<span>/14</span></div>
-        <div class="m-cap">On mobile, Google showed a local pack for 14 of the 19 terms, including 9 of the 10 wholesale terms. Kahve Ambarı's 4.9★ profile was in none of them.</div>
+        <div class="m-cap">Google shows a map pack on mobile for 9 of 10 wholesale terms. Kahve Ambarı is in none.</div>
+      </div>
+      <div class="metric hl-fail">
+        <div class="m-label">Mobile speed (Lighthouse)</div>
+        <div class="m-num">26–39<span>/100</span></div>
+        <div class="m-cap">Main content takes 14–25 s to load on mobile. Good is under 2.5 s.</div>
+      </div>
+      <div class="metric hl-green">
+        <div class="m-label">Products with Product schema</div>
+        <div class="m-num">240<span>/240</span></div>
+        <div class="m-cap">The store's technical structure is sound.</div>
       </div>
     </div>
 
-    <p>For a catalogue of roughly 225 products across 57 collections, the technical foundations are strong. When shoppers filter or sort a category, Google is correctly told to treat it as one page, so the store isn't flooding search results with near-duplicates. Every product page carries the product data Google uses for rich results (price, availability), and most categories have proper titles and descriptions. The brand is well established: a search for "kahve ambarı" shows the site at #1 with the full Google Business Profile panel and a 4.9★ rating from 14 reviews.</p>
-    <p>The wholesale page is the site's best ranking asset, and it is under-built. /toptan-kahve ranks #2 for "kahve toptancısı" (140 searches a month in İstanbul) and "toptan kahve çekirdeği" (90) as a product grid with no minimum order, no delivery terms and no enquiry form. It isn't in the top 10 for "toptan kahve" (480), the biggest wholesale term, or for either Turkish-coffee wholesale term (140 combined). Pieton Coffee, which ranks #1 for two wholesale terms, has all three of those elements on its wholesale page. The Google Business Profile exists and is well rated, but it appeared in none of the local packs: 7 on desktop and 14 on mobile, where Google shows a pack for 9 of the 10 wholesale terms. Mobile pages are also slow: Lighthouse scored them 26–39 out of 100, with the main content taking 14–25 seconds to appear on a throttled mobile connection. On retail terms such as "çekirdek kahve" (8,100) and "filtre kahve" (14,800), page one belongs to national chains and marketplaces. That is a longer game and not where the quick wins are. On the store side, 38 product pages and 10 core pages share the bare title "Kahve Ambarı", and the homepage has no H1.</p>
-    <p>Overall assessment: <strong>needs work</strong>. The site is technically healthy and already close on wholesale, but it isn't capitalising on the wholesale ranking it has and is absent from the local packs. The priority order below reflects <em>local and wholesale revenue first, then store-wide on-page hygiene</em>.</p>
+    <p>Kahve Ambarı is close to winning wholesale search but isn't capitalising on it. The wholesale page already ranks #2 for two buyer terms with almost no supporting content. Meanwhile, the Business Profile is missing from every map pack, and the site is slow on mobile. All of this is fixable on the current platform, with no rebuild needed.</p>
 
     <div class="plan-head" style="margin-top:48px">
       <span class="lbl">Top 3 priorities</span>
-      <span class="lbl-sub">Local &amp; wholesale revenue first</span>
+      <span class="lbl-sub">Wholesale revenue first</span>
       <span class="rule"></span>
     </div>
 
     <div class="prio-grid">
       <div class="prio crit">
-        <div class="p-num">01 · Critical · Local signals</div>
-        <h4>Get the Google Business Profile into the wholesale local packs</h4>
-        <p>On mobile, Google showed a local pack for 9 of the 10 wholesale terms. Kahve Ambarı was absent from all of them, even with a 4.9★ rating, and they were filled by listings such as Caferest Gıda, Kahvelog-Yıldız İstanbul Toptan Gıda, Altay Kahve Toptan and Vavons Coffee – Toptan Kahve. The profile is listed only as a "Kahve Kavurma Şirketi". Add a wholesale category and wholesale services, and support it on the site: sitewide footer address and phone, the empty <code>PostalAddress</code> in the Store schema filled, and a map on /pages/iletisim.</p>
+        <div class="p-num">01 · Critical · Business Profile</div>
+        <h4>Get into the wholesale map packs</h4>
+        <p>Add a wholesale category and services to the profile, which currently lists only "Kahve Kavurma Şirketi". Put the address and phone in the site footer, and fix the empty address in the site's schema.</p>
       </div>
       <div class="prio crit">
-        <div class="p-num">02 · Critical · Wholesale</div>
-        <h4>Build out /toptan-kahve to win "toptan kahve" (480/mo)</h4>
-        <p>The page already ranks #2 for "kahve toptancısı" and "toptan kahve çekirdeği", so Google trusts it. It's missing from the top 10 for "toptan kahve", where Kocatepe's /toptan page is #1. Add what Pieton Coffee's #1-ranking wholesale page has: minimum order (theirs is 10 kg), delivery terms, a B2B enquiry form and the business address. Also add a Turkish-coffee wholesale section to target "toptan türk kahvesi" and "türk kahvesi toptan" (140/mo combined).</p>
+        <div class="p-num">02 · Critical · Wholesale page</div>
+        <h4>Build out /toptan-kahve</h4>
+        <p>Add a minimum order, delivery terms, an enquiry form and a Turkish-coffee wholesale section, as the #1-ranking Pieton page has. The target is "toptan kahve" (480/mo) and Turkish-coffee wholesale (140/mo).</p>
       </div>
       <div class="prio">
-        <div class="p-num">03 · On-page · Store</div>
-        <h4>Fix 38 product titles and 10 core-page titles</h4>
-        <p>Rename the 38 products titled "Kahve Ambarı" to their product names (e.g. "Bialetti Moka Pot Express 6 Cup — Kahve Ambarı"), and give contact, FAQ, blog and brands pages their own titles and meta descriptions. Also fix /kahveler, which uses the same title as /filtre-kahveler ("Filtre Kahve Çeşitleri ve Fiyatları"), so the two pages compete with each other.</p>
+        <div class="p-num">03 · Titles &amp; speed</div>
+        <h4>Fix 48 titles and mobile speed</h4>
+        <p>Give the 38 products and 10 pages titled only "Kahve Ambarı" proper titles, and add an H1 to the homepage. Then work with ikas to cut the unused JavaScript that is slowing mobile pages.</p>
       </div>
     </div>
 
@@ -461,52 +459,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="scorecard">
       <div class="scorecard-item mid-score">
         <div class="sc-score">5<span style="font-size:18px;color:var(--muted)">/10</span></div>
-        <div>
-          <div class="sc-label">Technical SEO</div>
-          <div class="sc-cap">Clean canonicals, Product schema everywhere, valid robots and sitemap. Let down by poor mobile speed (26–39/100), 6 redirecting sitemap URLs and an empty address in the schema.</div>
-        </div>
+        <div><div class="sc-label">Technical SEO</div><div class="sc-cap">Clean structure and schema. Slow on mobile, with 6 bad redirects.</div></div>
       </div>
       <div class="scorecard-item crit-score">
         <div class="sc-score">4<span style="font-size:18px;color:var(--muted)">/10</span></div>
-        <div>
-          <div class="sc-label">On-Page SEO</div>
-          <div class="sc-cap">No H1 on the homepage, 48 pages titled only "Kahve Ambarı", 23 collections with no meta description.</div>
-        </div>
+        <div><div class="sc-label">On-Page SEO</div><div class="sc-cap">48 duplicate titles. No H1 on the homepage.</div></div>
       </div>
       <div class="scorecard-item mid-score">
         <div class="sc-score">5<span style="font-size:18px;color:var(--muted)">/10</span></div>
-        <div>
-          <div class="sc-label">Content Depth</div>
-          <div class="sc-cap">Good category copy on core coffee pages. Only 6 blog posts, the last in Feb 2026, 3 of them thin duplicates, and no About or roastery page.</div>
-        </div>
+        <div><div class="sc-label">Content Depth</div><div class="sc-cap">Good category copy. Thin blog, and no About page.</div></div>
       </div>
       <div class="scorecard-item crit-score">
         <div class="sc-score">3<span style="font-size:18px;color:var(--muted)">/10</span></div>
-        <div>
-          <div class="sc-label">Local SEO</div>
-          <div class="sc-cap">The GBP exists with consistent NAP and a 4.9★ rating, but it appeared in none of the local packs Google showed (7 on desktop, 14 on mobile). The address is on the contact page only.</div>
-        </div>
+        <div><div class="sc-label">Local SEO</div><div class="sc-cap">4.9★ profile, but in 0 map packs.</div></div>
       </div>
       <div class="scorecard-item mid-score">
         <div class="sc-score">4<span style="font-size:18px;color:var(--muted)">/10</span></div>
-        <div>
-          <div class="sc-label">Competitor Gap</div>
-          <div class="sc-cap">On page one for 3 of 10 wholesale terms, against Pieton's 2 and kahveborsam's 4. National chains own the retail terms.</div>
-        </div>
+        <div><div class="sc-label">Competitor Gap</div><div class="sc-cap">Competitive on wholesale. National chains own retail.</div></div>
       </div>
       <div class="scorecard-item good-score">
         <div class="sc-score">6<span style="font-size:18px;color:var(--muted)">/10</span></div>
-        <div>
-          <div class="sc-label">Store template</div>
-          <div class="sc-cap">Median product page carries about 400 words of its own content, with schema and breadcrumbs. Held back by duplicate titles, 21 pages with multiple H1s and duplicate collections.</div>
-        </div>
+        <div><div class="sc-label">Store template</div><div class="sc-cap">Solid product pages. Some duplicate collections.</div></div>
       </div>
     </div>
 
     <div class="diff">
       <h4>Overall verdict</h4>
-      <h3>Already close on wholesale, missing from the map, so <em>quick wins come first</em>.</h3>
-      <p>Nothing here needs a platform change. The ikas template already handles the hardest e-commerce SEO problems, faceted duplicates and product schema, correctly, and the wholesale page already ranks #2 for two volume-backed terms. Lead with the GBP category and location signals (days of work), then build out the wholesale page to target "toptan kahve" and Turkish-coffee wholesale (one to two weeks), then clean up the 48 duplicate titles store-wide. In parallel, raise mobile speed with ikas: the main cost is about 1 MB of unused JavaScript and 3.5 s of script execution on the homepage, which is a theme and app-script problem rather than a reason to rebuild. Re-check the same 19 keywords about 6–8 weeks after the changes go live to measure the effect.</p>
+      <h3>Close on wholesale, missing from the map: <em>quick wins first</em>.</h3>
+      <p>Start with the Business Profile (days of work), then the wholesale page (1–2 weeks), then titles and speed. Re-check the same 19 keywords 6–8 weeks after the changes go live.</p>
     </div>
   </div>
 </section>
