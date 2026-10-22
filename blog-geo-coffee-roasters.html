@@ -245,7 +245,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <!-- Right: form -->
-      <form action="https://formspree.io/f/your-form-id" method="POST">
+      <form action="/contact.php" method="POST">
+        <input type="hidden" name="source_page" value="Blog: GEO for coffee roasters" />
+        <input type="hidden" name="form_type" value="enquiry" />
+        <div style="position:absolute;left:-9999px;" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
         <div class="form-row">
           <div>
             <label for="fname">First name</label>
