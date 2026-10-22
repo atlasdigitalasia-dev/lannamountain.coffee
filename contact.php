@@ -74,15 +74,71 @@ foreach ($fields as $label => $value) {
 }
 $body .= "\nIP: " . ($_SERVER['REMOTE_ADDR'] ?? '') . "\n";
 
-$headers = [
-    'From: ' . FROM_NAME . ' <' . FROM_ADDRESS . '>',
-    'Reply-To: ' . ($name !== '' ? mb_encode_mimeheader($name) . " <$email>" : $email),
-    'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset=UTF-8',
-    'Content-Transfer-Encoding: 8bit',
-];
+// ── Sending ──────────────────────────────────────────────────────────────
+// Preferred: authenticated SMTP via Hostinger's mail server, so the message is
+// DKIM-signed and passes SPF (mail() from the web server is neither, and lands in spam).
+// Credentials live OUTSIDE the web root / git repo, in:
+//   domains/lannamountain.coffee/mail-config.php   (one level above public_html)
+// returning ['host'=>'smtp.hostinger.com','port'=>465,'user'=>'forms@lannamountain.coffee','pass'=>'...'].
+// If that file is missing, falls back to mail().
 
-$sent = mail(TO_ADDRESS, mb_encode_mimeheader($subject, 'UTF-8'), $body, implode("\r\n", $headers), '-f' . FROM_ADDRESS);
+$replyTo = $name !== '' ? mb_encode_mimeheader($name) . " <$email>" : $email;
+$cfgFile = dirname(__DIR__) . '/mail-config.php';
+$smtp    = is_file($cfgFile) ? (require $cfgFile) : null;
+
+function smtp_send(array $c, string $to, string $subject, string $body, string $replyTo, string &$err): bool {
+    $host = $c['host'] ?? 'smtp.hostinger.com';
+    $port = (int)($c['port'] ?? 465);
+    $user = (string)$c['user'];
+    $fp = @stream_socket_client("ssl://$host:$port", $errno, $errstr, 15);
+    if (!$fp) { $err = "connect: $errstr"; return false; }
+    stream_set_timeout($fp, 15);
+    $read = function () use ($fp) { $d = ''; while (($l = fgets($fp, 515)) !== false) { $d .= $l; if (isset($l[3]) && $l[3] === ' ') break; } return $d; };
+    $cmd  = function (string $line, string $expect) use ($fp, $read, &$err) {
+        if ($line !== '') fwrite($fp, $line . "\r\n");
+        $r = $read();
+        if (strpos($r, $expect) !== 0) { $err = trim($line === '' ? 'greeting' : explode(' ', $line)[0]) . ': ' . trim($r); return false; }
+        return true;
+    };
+    $domain = substr(strrchr($user, '@'), 1) ?: 'localhost';
+    $date   = date('r');
+    $msgId  = '<' . bin2hex(random_bytes(12)) . '@' . $domain . '>';
+    $data   = "Date: $date\r\nMessage-ID: $msgId\r\n"
+            . 'From: ' . mb_encode_mimeheader(FROM_NAME) . " <$user>\r\n"
+            . "To: <$to>\r\nReply-To: $replyTo\r\n"
+            . 'Subject: ' . mb_encode_mimeheader($subject, 'UTF-8') . "\r\n"
+            . "MIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n"
+            . preg_replace('/^\./m', '..', str_replace(["\r\n", "\r", "\n"], "\r\n", $body)) . "\r\n.";
+    $ok = $cmd('', '220')
+       && $cmd("EHLO $domain", '250')
+       && $cmd('AUTH LOGIN', '334')
+       && $cmd(base64_encode($user), '334')
+       && $cmd(base64_encode((string)$c['pass']), '235')
+       && $cmd("MAIL FROM:<$user>", '250')
+       && $cmd("RCPT TO:<$to>", '250')
+       && $cmd('DATA', '354')
+       && $cmd($data, '250');
+    fwrite($fp, "QUIT\r\n");
+    fclose($fp);
+    return $ok;
+}
+
+$sent = false;
+if (is_array($smtp) && !empty($smtp['user']) && !empty($smtp['pass'])) {
+    $smtpErr = '';
+    $sent = smtp_send($smtp, TO_ADDRESS, $subject, $body, $replyTo, $smtpErr);
+    if (!$sent) error_log('contact.php: SMTP failed — ' . $smtpErr);
+}
+if (!$sent) {
+    $headers = [
+        'From: ' . FROM_NAME . ' <' . FROM_ADDRESS . '>',
+        'Reply-To: ' . $replyTo,
+        'MIME-Version: 1.0',
+        'Content-Type: text/plain; charset=UTF-8',
+        'Content-Transfer-Encoding: 8bit',
+    ];
+    $sent = mail(TO_ADDRESS, mb_encode_mimeheader($subject, 'UTF-8'), $body, implode("\r\n", $headers), '-f' . FROM_ADDRESS);
+}
 
 if (!$sent) {
     error_log('contact.php: mail() failed for ' . $email);

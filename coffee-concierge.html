@@ -80,86 +80,67 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a href="contact" class="btn btn-primary">Book a free call →</a>
 </div>
 
-<!-- ── Page Hero ───────────────────────────────────── -->
-<div class="page-hero mountain-bg">
+<!-- ── Hero + setup form ──────────────────────────── -->
+<div class="page-hero mountain-bg" id="get-started" style="padding-bottom:72px;">
   <div class="page-hero-inner container">
-    <div class="breadcrumb"><a href="/">Home</a><span>›</span><a href="/#services">Services</a><span>›</span><strong>Coffee Concierge</strong></div>
-    <div class="page-hero-tag">Coffee Concierge</div>
-    <h1>An AI barista for your<br/><em>coffee website.</em></h1>
-    <p class="page-hero-sub">Coffee Concierge sits on your roaster website, recommends coffee from your current stock, answers brewing questions and captures wholesale enquiries, 24/7. Send us your store URL and we'll set it up for you.</p>
-    <div class="page-hero-actions">
-      <a href="#get-started" class="btn btn-primary">Get set up →</a>
-      <button type="button" data-concierge="open" class="btn btn-outline">Try the live demo</button>
+    <div class="contact-inner" style="align-items:center;">
+      <div>
+        <div class="breadcrumb"><a href="/">Home</a><span>›</span><a href="/#services">Services</a><span>›</span><strong>Coffee Concierge</strong></div>
+        <div class="page-hero-tag">Coffee Concierge</div>
+        <h1>An AI barista for your<br/><em>coffee website.</em></h1>
+        <p class="page-hero-sub">Recommends coffee from your current stock, answers brewing questions and captures wholesale enquiries, 24/7. Fill in the form and we'll get you set up.</p>
+        <div style="font-family:var(--font-head);font-size:28px;font-weight:700;color:var(--white);margin:8px 0 24px;">From $300 <span style="font-size:15px;color:var(--muted);font-weight:400;">USD / year</span></div>
+        <div class="page-hero-actions">
+          <button type="button" data-concierge="open" class="btn btn-outline">Try the live demo</button>
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px;">
+        <div style="font-family:var(--font-head);font-size:20px;font-weight:700;color:var(--white);margin-bottom:18px;">Get Coffee Concierge set up</div>
+        <form action="/contact.php" method="POST">
+        <input type="hidden" name="source_page" value="Coffee Concierge page" />
+        <input type="hidden" name="form_type" value="concierge" />
+        <div style="position:absolute;left:-9999px;" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+        <div class="form-row">
+          <div>
+            <label for="cc-name">Your name</label>
+            <input type="text" id="cc-name" name="first_name" placeholder="Jane Smith" required />
+          </div>
+          <div>
+            <label for="cc-email">Email address</label>
+            <input type="email" id="cc-email" name="email" placeholder="jane@yourroastery.com" required />
+          </div>
+        </div>
+        <div>
+          <label for="cc-url">Store website</label>
+          <input type="text" id="cc-url" name="store_url" placeholder="yourroastery.com" required />
+        </div>
+        <div class="form-row">
+          <div>
+            <label for="cc-platform">Platform</label>
+            <select id="cc-platform" name="platform" required>
+              <option value="">Select…</option>
+              <option>Shopify</option>
+              <option>WooCommerce</option>
+              <option>Squarespace</option>
+              <option>Wix</option>
+              <option>Other / not sure</option>
+            </select>
+          </div>
+          <div>
+            <label for="cc-country">Country</label>
+            <input type="text" id="cc-country" name="country" placeholder="Australia" />
+          </div>
+        </div>
+        <div>
+          <label for="cc-msg">Anything we should know? (optional)</label>
+          <textarea id="cc-msg" name="message" rows="3" style="min-height:90px;" placeholder="e.g. We sell retail and wholesale, around 20 coffees in the range"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px;">Get Coffee Concierge set up →</button>
+      </form>
+      </div>
     </div>
   </div>
 </div>
-
-<!-- ── Get started form ────────────────────────────── -->
-<section id="get-started">
-  <div class="container">
-    <div class="contact-inner">
-
-      <div class="contact-info">
-        <span class="section-tag">Get set up</span>
-        <h2>Send us your store.<br/><em>We do the rest.</em></h2>
-        <p>Fill in your details and we'll connect Coffee Concierge to your product catalogue, set it up in your brand colours and get it live on your site.</p>
-        <div style="background:var(--green-dim);border:1px solid var(--green);border-radius:8px;padding:18px 22px;display:inline-block;margin-bottom:28px;">
-          <div style="font-size:11px;font-family:var(--font-head);font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-lt);margin-bottom:6px;">Pricing</div>
-          <div style="font-family:var(--font-head);font-size:30px;font-weight:700;color:var(--white);line-height:1.1;">From $300 <span style="font-size:15px;color:var(--muted);font-weight:400;">USD / year</span></div>
-        </div>
-        <ul class="check-list">
-          <li>Works on Shopify, WooCommerce, WordPress, Squarespace, Wix and plain HTML</li>
-          <li>Recommends coffee from your current stock</li>
-          <li>Captures wholesale enquiries and sends them to you</li>
-          <li>We handle the setup</li>
-        </ul>
-      </div>
-
-      <form action="/contact.php" method="POST">
-        <input type="hidden" name="source_page" value="Coffee Concierge page" />
-        <input type="hidden" name="form_type" value="concierge" />
-        <div style="position:absolute;left:-9999px;" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
-        <div class="form-row">
-          <div>
-            <label for="cc-name">Your name</label>
-            <input type="text" id="cc-name" name="first_name" placeholder="Jane Smith" required />
-          </div>
-          <div>
-            <label for="cc-email">Email address</label>
-            <input type="email" id="cc-email" name="email" placeholder="jane@yourroastery.com" required />
-          </div>
-        </div>
-        <div>
-          <label for="cc-url">Store website</label>
-          <input type="text" id="cc-url" name="store_url" placeholder="yourroastery.com" required />
-        </div>
-        <div class="form-row">
-          <div>
-            <label for="cc-platform">Platform</label>
-            <select id="cc-platform" name="platform" required>
-              <option value="">Select…</option>
-              <option>Shopify</option>
-              <option>WooCommerce</option>
-              <option>Squarespace</option>
-              <option>Wix</option>
-              <option>Other / not sure</option>
-            </select>
-          </div>
-          <div>
-            <label for="cc-country">Country</label>
-            <input type="text" id="cc-country" name="country" placeholder="Australia" />
-          </div>
-        </div>
-        <div>
-          <label for="cc-msg">Anything we should know? (optional)</label>
-          <textarea id="cc-msg" name="message" rows="3" style="min-height:90px;" placeholder="e.g. We sell retail and wholesale, around 20 coffees in the range"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px;">Get Coffee Concierge set up →</button>
-      </form>
-
-    </div>
-  </div>
-</section>
 
 <!-- ── Live demo ───────────────────────────────────── -->
 <section id="demo" class="alt">
