@@ -1,5 +1,10 @@
 # Clean URLs: /about → about.html, /services-web → services-web.html
 RewriteEngine On
+
+# Keep dotfiles off the web (.gitignore, .git, .mail-config.php) — this repo deploys into public_html
+RewriteCond %{REQUEST_URI} !^/\.well-known/
+RewriteRule (^|/)\. - [F,L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^([^.]+?)/?$ $1.html [NC,L]
