@@ -83,8 +83,11 @@ $body .= "\nIP: " . ($_SERVER['REMOTE_ADDR'] ?? '') . "\n";
 // If that file is missing, falls back to mail().
 
 $replyTo = $name !== '' ? mb_encode_mimeheader($name) . " <$email>" : $email;
-$cfgFile = dirname(__DIR__) . '/mail-config.php';
-$smtp    = is_file($cfgFile) ? (require $cfgFile) : null;
+$cfgFile = null;
+foreach ([dirname(__DIR__) . '/mail-config.php', __DIR__ . '/.mail-config.php'] as $f) {
+    if (is_file($f)) { $cfgFile = $f; break; }
+}
+$smtp    = $cfgFile ? (require $cfgFile) : null;
 
 function smtp_send(array $c, string $to, string $subject, string $body, string $replyTo, string &$err): bool {
     $host = $c['host'] ?? 'smtp.hostinger.com';

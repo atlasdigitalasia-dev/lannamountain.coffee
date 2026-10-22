@@ -9,3 +9,8 @@ RewriteRule ^([^.]+?)/?$ $1.html [NC,L]
     Header set X-Content-Type-Options "nosniff"
     Header set X-Frame-Options "SAMEORIGIN"
 </IfModule>
+
+# Block the SMTP credentials file
+<Files ".mail-config.php">
+    Require all denied
+</Files>
