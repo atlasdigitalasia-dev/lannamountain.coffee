@@ -56,9 +56,14 @@ $fields = [
 ];
 
 $name = trim($fields['First name'] . ' ' . $fields['Last name']);
-$subject = $formType === 'newsletter'
-    ? "Newsletter signup — $email"
-    : 'New lead — ' . ($name !== '' ? $name : $email) . " ($source)";
+if ($formType === 'newsletter') {
+    $subject = "Newsletter signup — $email";
+} elseif ($formType === 'concierge') {
+    $subject = 'Coffee Concierge setup — ' . ($name !== '' ? $name : $email)
+             . ($fields['Store URL'] !== '' ? ' (' . $fields['Store URL'] . ')' : '');
+} else {
+    $subject = 'New lead — ' . ($name !== '' ? $name : $email) . " ($source)";
+}
 
 $body  = "Source: $source\nForm: $formType\n";
 $body .= 'Submitted: ' . gmdate('Y-m-d H:i') . " UTC\n";
