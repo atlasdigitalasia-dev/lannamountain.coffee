@@ -1296,3 +1296,18 @@ footer {
 /* ── Six-step variant (Coffee Concierge page): 3x2, no connector line ── */
 .steps-grid.six { row-gap: 48px; }
 .steps-grid.six::before { display: none; }
+
+/* ── Mobile fixes (2026-10-29): header + inline grids ── */
+@media (max-width: 900px) {
+  .nav-social { display: none; }
+  .nav-logo { white-space: nowrap; }
+  .nav-cta .btn { white-space: nowrap; }
+  .hamburger { background: none; border: 0; padding: 8px; margin-right: -8px; -webkit-appearance: none; appearance: none; }
+}
+@media (max-width: 600px) {
+  .nav-cta { display: none; }
+  nav { padding: 0 16px; }
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns:1fr auto"] { grid-template-columns: 1fr !important; }
+  [style*="padding:36px 40px"] { padding: 28px 24px !important; }
+}
