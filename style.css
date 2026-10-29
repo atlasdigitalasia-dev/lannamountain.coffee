@@ -1293,8 +1293,6 @@ footer {
   .timeline-item { grid-template-columns: 48px 1fr; gap: 16px; }
 }
 
-/* ── Four-step variant (Coffee Concierge page) ───── */
-.steps-grid.four { grid-template-columns: repeat(4, 1fr); gap: 24px; }
-.steps-grid.four::before { left: 32px; right: calc(25% - 50px); }
-@media (max-width: 900px) { .steps-grid.four { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 600px) { .steps-grid.four { grid-template-columns: 1fr; } }
+/* ── Six-step variant (Coffee Concierge page): 3x2, no connector line ── */
+.steps-grid.six { row-gap: 48px; }
+.steps-grid.six::before { display: none; }
