@@ -1292,3 +1292,9 @@ footer {
   .cta-actions { flex-direction: column; align-items: center; }
   .timeline-item { grid-template-columns: 48px 1fr; gap: 16px; }
 }
+
+/* ── Four-step variant (Coffee Concierge page) ───── */
+.steps-grid.four { grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.steps-grid.four::before { left: 32px; right: calc(25% - 50px); }
+@media (max-width: 900px) { .steps-grid.four { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .steps-grid.four { grid-template-columns: 1fr; } }
