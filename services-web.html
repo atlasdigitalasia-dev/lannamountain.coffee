@@ -487,5 +487,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 .wa-float:hover .wa-tooltip{opacity:1;}
 @media(max-width:480px){.wa-float{bottom:18px;right:18px;width:50px;height:50px;}.wa-tooltip{display:none;}}
 </style>
+<script>
+/* Anti-spam: contact.php rejects form posts without lm_t (seconds on the page), which this adds on submit. */
+(function(){var t=Date.now();document.querySelectorAll('form[action="/contact.php"]').forEach(function(f){f.addEventListener('submit',function(){var i=f.querySelector('input[name="lm_t"]');if(!i){i=document.createElement('input');i.type='hidden';i.name='lm_t';f.appendChild(i);}i.value=String(Math.round((Date.now()-t)/1000));});});})();
+</script>
 </body>
 </html>

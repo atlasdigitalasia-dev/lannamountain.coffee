@@ -14,11 +14,27 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Honeypot: real visitors never see or fill this field.
-if (!empty($_POST['website'])) {
+// -- Spam filter ----------------------------------------------------------
+// A rejected post gets the normal thank-you redirect (so bots learn nothing) and is
+// logged above the web root in contact-spam.log, so a real lead caught by mistake
+// is never lost. No email is sent for a rejected post.
+function spam_exit(string $reason): void {
+    $p = function (string $k, int $n): string {
+        $v = isset($_POST[$k]) && is_string($_POST[$k]) ? $_POST[$k] : '';
+        return mb_substr(trim((string)preg_replace('/\s+/', ' ', $v)), 0, $n);
+    };
+    $line = gmdate('Y-m-d H:i:s') . " UTC | $reason | IP " . ($_SERVER['REMOTE_ADDR'] ?? '')
+          . ' | ' . $p('first_name', 60) . ' ' . $p('last_name', 60) . ' <' . $p('email', 120) . '>'
+          . ' | ' . $p('source_page', 60) . ' | ' . $p('message', 300) . "\n";
+    $log = dirname(__DIR__) . '/contact-spam.log';
+    if (is_file($log) && filesize($log) > 2000000) @rename($log, $log . '.old');
+    @file_put_contents($log, $line, FILE_APPEND | LOCK_EX);
     header('Location: ' . THANKS_URL, true, 303);
     exit;
 }
+
+// Honeypot: real visitors never see or fill this field.
+if (!empty($_POST['website'])) spam_exit('honeypot');
 
 function clean(string $key, int $max = 2000): string {
     $v = isset($_POST[$key]) && is_string($_POST[$key]) ? trim($_POST[$key]) : '';
@@ -56,6 +72,20 @@ $fields = [
 ];
 
 $name = trim($fields['First name'] . ' ' . $fields['Last name']);
+
+// Bot checks. Every form page adds lm_t (seconds spent on the page) with JavaScript
+// at submit time; form-spam bots usually post straight to this script without it.
+$lmT = isset($_POST['lm_t']) && is_string($_POST['lm_t']) ? $_POST['lm_t'] : '';
+if (!ctype_digit($lmT)) spam_exit('no-js-token');
+if ((int)$lmT < 3)      spam_exit('too-fast');
+$fn  = $fields['First name'];
+$ln  = $fields['Last name'];
+$all = implode(' ', $fields);
+if (preg_match('/\d/', $fn . $ln)) spam_exit('digits-in-name');
+if ($fn !== '' && strcasecmp($fn, $ln) === 0 && preg_match('/\p{Ll}\p{Lu}{2}$/u', $fn)) spam_exit('bot-name');
+if (preg_match('/\p{Cyrillic}/u', $all)) spam_exit('cyrillic');
+if (preg_match('/<a\s|href\s*=|\[url/i', $all)) spam_exit('link-markup');
+if (preg_match('/\b(xevil|xrumer)\b/i', $all)) spam_exit('spam-keyword');
 if ($formType === 'newsletter') {
     $subject = "Newsletter signup — $email";
 } elseif ($formType === 'concierge') {
